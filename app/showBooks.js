@@ -1,10 +1,8 @@
 import applyDiscounts from "./discountBooks.js";
-import fetchBooks from "./fetchBooks.js";
 
 const booksSection = document.getElementById("livros")
 
-export default async function showBooks(url) {
-    const books = await fetchBooks(url)
+export default async function showBooks(books) {
 
     // Método que eu testei, mas ficou muito verboso. Poderia fazer uma nova função para diminuir a repetição de código.
     // if (books.length > 0) {
@@ -59,7 +57,7 @@ export default async function showBooks(url) {
         discountedBooks.forEach((book) => {
             booksHTML += `
             <div class="livro">
-                <img src="${book.imagem}" alt="${book.alt}" class="livro__imagens">
+                <img src="${book.imagem}"alt="${book.alt}" class="livro__imagens ${book.quantidade === 0 ? "indisponivel" : ""}">
                 <h2 class="livro__titulo">${book.titulo}</h2>
                 <p class="livro__descricao">${book.autor}</p>
                 <p class="livro__preco" id="preco">${book.preco.toLocaleString('pt-br', { style: "currency", currency: "BRL" })}</p>
