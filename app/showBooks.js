@@ -50,11 +50,9 @@ export default async function showBooks(books) {
         return;
     }
 
-    const discountedBooks = await applyDiscounts(books)
-
     if (books.length > 0) {
 
-        discountedBooks.forEach((book) => {
+        books.forEach((book) => {
             booksHTML += `
             <div class="livro">
                 <img src="${book.imagem}"alt="${book.alt}" class="livro__imagens ${book.quantidade === 0 ? "indisponivel" : ""}">

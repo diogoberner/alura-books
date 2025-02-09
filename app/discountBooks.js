@@ -6,7 +6,7 @@ export default async function discountedBooks(books) {
         const hasDiscount = book.quantidade > minStockForDiscount
 
         return hasDiscount ?
-            { ...book, preco: book.preco * (1 - discount) }
+            { ...book, preco: Number((book.preco * (1 - discount)).toFixed(2)) }
             : book
 
     }
