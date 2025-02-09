@@ -4,6 +4,7 @@ import filterBooks from "./filterBooks.js"
 import avaliableBooks from "./avaliableBooks.js"
 import sortBooks from "./sortBooks.js"
 import discountedBooks from "./discountBooks.js"
+import avaliableBooksTotalPrice from "./avaliableBooksTotalPrice.js"
 
 const url = "https://guilhermeonrails.github.io/casadocodigo/livros.json"
 const navButtons = document.querySelectorAll(".nav .btn")
@@ -20,16 +21,19 @@ if (books) {
 navButtons.forEach(button => {
     button.addEventListener("click", async (e) => {
         const bookType = e.target.value
+        const avaliableBooksDiv = document.getElementById("valor_total_livros_disponiveis")
+
 
         if (bookType === "livros-disponiveis") {
             currentBooks = avaliableBooks(books)
             currentBooks = await discountedBooks(currentBooks)
+            avaliableBooksTotalPrice(currentBooks, avaliableBooksDiv)
         } else if (bookType === "ordenarPorPreco") {
             currentBooks = sortBooks(currentBooks, isAscending)
             isAscending = !isAscending
-            console.log(currentBooks)
         }
         else {
+            avaliableBooksDiv.innerHTML = ""
             currentBooks = filterBooks(books, bookType)
             currentBooks = await discountedBooks(currentBooks)
         }
